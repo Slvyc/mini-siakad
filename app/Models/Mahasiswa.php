@@ -16,6 +16,7 @@ class Mahasiswa extends Model
         'nama',
         'jumlah_sks',
         'status',
+        'jenis_kelamin'
     ];
 
     public function user()

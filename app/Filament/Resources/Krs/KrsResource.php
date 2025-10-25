@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Krs;
 
 use App\Filament\Resources\Krs\Pages\ManageKrs;
 use App\Models\Krs;
+use App\Models\Mahasiswa;
 use BackedEnum;
 use Dom\Text;
 use UnitEnum;
@@ -42,11 +43,15 @@ class KrsResource extends Resource
         return $schema
             ->components([
                 Select::make('mahasiswa_id')
-                    ->relationship('mahasiswa', 'nama')
-                    ->label('Nama Mahasiswa')
-                    ->required()
+                    ->label('Pilih Mahasiswa (NIM)')
+                    ->options(fn() => Mahasiswa::with('user')
+                        ->get()
+                        ->mapWithKeys(fn($m) => [
+                            $m->id => ($m->user?->nim ?? 'N/A') . ' - ' . ($m->nama ?? 'N/A'),
+                        ])->toArray())
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                    ->required(),
                 Select::make('tahun_akademik_id')
                     ->relationship('tahunAkademik', 'tahun')
                     ->label('Tahun Akademik')
@@ -62,12 +67,12 @@ class KrsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('mahasiswa.nama')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('mahasiswa.user.nim')
                     ->label('NIM')
                     ->searchable()
+                    ->sortable(),
+                TextColumn::make('mahasiswa.nama')
+                    ->numeric()
                     ->sortable(),
                 TextColumn::make('tahunAkademik.tahun')
                     ->label('Tahun Akademik')

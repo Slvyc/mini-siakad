@@ -31,6 +31,11 @@ class MiniSiakadPanelProvider extends PanelProvider
             ->id('mini-siakad')
             ->path('mini-siakad')
             ->login()
+            ->middleware([
+                'web',
+                'auth',
+                \App\Http\Middleware\EnsureUserIsAdmin::class,
+            ])
             ->colors([
                 'primary' => Color::Amber,
             ])

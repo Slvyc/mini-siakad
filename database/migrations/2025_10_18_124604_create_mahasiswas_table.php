@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('prodi_id')->constrained('prodi')->onDelete('cascade');
             $table->string('nama', 255);
-            $table->unsignedBigInteger('jumlah_sks');
+            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->unsignedBigInteger('jumlah_sks')->default(0);
             $table->enum('status', ['aktif', 'cuti', 'lulus', 'drop out'])->default('aktif');
             $table->timestamps();
         });

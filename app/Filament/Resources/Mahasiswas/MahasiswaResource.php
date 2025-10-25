@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Mahasiswas;
 use App\Filament\Resources\Mahasiswas\Pages\ManageMahasiswas;
 use App\Models\Mahasiswa;
 use BackedEnum;
+use Dom\Text;
 use PhpParser\Node\Stmt\Label;
 use UnitEnum;
 use Filament\Actions\BulkActionGroup;
@@ -17,6 +18,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -61,6 +63,9 @@ class MahasiswaResource extends Resource
                 TextInput::make('jumlah_sks')
                     ->required()
                     ->numeric(),
+                Select::make('jenis_kelamin')
+                    ->options(['L' => 'Laki-laki', 'P' => 'Perempuan'])
+                    ->required(),
                 Select::make('status')
                     ->options(['aktif' => 'Aktif', 'cuti' => 'Cuti', 'lulus' => 'Lulus', 'drop out' => 'Drop out'])
                     ->default('aktif')
@@ -76,6 +81,9 @@ class MahasiswaResource extends Resource
                 TextColumn::make('user_id')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('nama')
+                    ->label('Nama Mahasiswa')
+                    ->searchable(),
                 TextColumn::make('user.nim')
                     ->label('NIM')
                     ->searchable(),
@@ -83,8 +91,9 @@ class MahasiswaResource extends Resource
                     ->label('Nama Prodi')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('nama')
-                    ->searchable(),
+                TextColumn::make('jenis_kelamin')
+                    ->label('Jenis Kelamin')
+                    ->badge(),
                 TextColumn::make('jumlah_sks')
                     ->numeric()
                     ->sortable(),
