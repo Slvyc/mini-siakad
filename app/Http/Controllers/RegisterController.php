@@ -68,7 +68,7 @@ class RegisterController extends Controller
 
             // Auth::login($user);
 
-            return view('mahasiswa.dashboard')
+            return redirect()->route('login')
                 ->with('success', 'Registrasi berhasil!');
             // return redirect()->with('success', 'Registrasi Berhasil');
         } catch (\Exception $e) {

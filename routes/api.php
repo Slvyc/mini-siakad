@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\KknController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\MahasiswaController;
 use Illuminate\Http\Request;
@@ -18,11 +19,15 @@ Route::post('/auth/login', [LoginController::class, 'apiLogin']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
+
+    // syarat kkn 
+    Route::get('/kkn/syarat', [KknController::class, 'validasiSyarat']);
 });
 
 Route::middleware('check.system.key')->group(function () {
     Route::get('/mahasiswa/admin', [MahasiswaController::class, 'allFromSystem']);
     Route::get('/mahasiswa/admin/{id}', [MahasiswaController::class, 'show']);
+    Route::get('/kkn/syarat/admin', [KknController::class, 'validasiSyaratAdmin']);
 });
 
 // Route::get('/check-key', function () {

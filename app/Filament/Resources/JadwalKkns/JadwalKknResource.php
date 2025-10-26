@@ -60,8 +60,6 @@ class JadwalKknResource extends Resource
                     ->required(),
                 DatePicker::make('tanggal_selesai')
                     ->required(),
-                TextInput::make('keterangan')
-                    ->required(),
                 Toggle::make('status_pendaftaran')
                     ->label('Status Pendaftaran : Dibuka/Ditutup')
                     ->required(),
@@ -82,8 +80,6 @@ class JadwalKknResource extends Resource
                 TextColumn::make('tanggal_selesai')
                     ->date()
                     ->sortable(),
-                TextColumn::make('keterangan')
-                    ->searchable(),
                 IconColumn::make('status_pendaftaran')
                     ->label('Dibuka/Ditutup')
                     ->boolean(),
