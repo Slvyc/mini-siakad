@@ -15,7 +15,6 @@ class JadwalKkn extends Model
         'tanggal_dibuka',
         'tanggal_ditutup',
         'keterangan',
-        'status_pendaftaran'
     ];
 
     public function prodi()

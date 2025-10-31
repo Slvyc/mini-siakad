@@ -27,7 +27,9 @@ class KknController extends Controller
         // 1. validasi cek jadwal kkn
 
         // dapatkan tahun akademik yang sedang aktif
-        $tahunAktif = TahunAkademik::where('aktif', true)->first();
+        $tahunAktif = TahunAkademik::where('aktif', true)
+            ->orderBy('created_at', 'desc')
+            ->first();
 
         if (!$tahunAktif) {
             return response()->json([
@@ -39,9 +41,9 @@ class KknController extends Controller
         // Mencari jadwal kkn yang sesuai
         $jadwalKkn = jadwalKkn::where('prodi_id', $mahasiswa->prodi_id)
             ->where('tahun_akademik_id', $tahunAktif->id)
-            ->where('status_pendaftaran', true)
-            ->whereDate('tanggal_mulai', '<=', now()) // Pendaftaran sudah dimulai
-            ->whereDate('tanggal_selesai', '>=', now()) // Pendaftaran belum ditutup
+            // ->where('status_pendaftaran', true)
+            ->whereDate('tanggal_dibuka', '<=', now()) // Pendaftaran sudah dimulai
+            ->whereDate('tanggal_ditutup', '>=', now()) // Pendaftaran belum ditutup
             ->first();
 
         // jika tidak ada jadwal kkn yang sesuai
@@ -79,9 +81,9 @@ class KknController extends Controller
 
         // 2. Dapatkan SEMUA prodi_id yang pendaftarannya sedang dibuka
         $prodiIdsAktif = JadwalKkn::where('tahun_akademik_id', $tahunAktif->id)
-            ->where('status_pendaftaran', true)
-            ->whereDate('tanggal_mulai', '<=', now())
-            ->whereDate('tanggal_selesai', '>=', now())
+            // ->where('status_pendaftaran', true)
+            ->whereDate('tanggal_dibuka', '<=', now())
+            ->whereDate('tanggal_ditutup', '>=', now())
             ->pluck('prodi_id') // Ambil hanya kolom prodi_id
             ->unique(); // Pastikan unik
 

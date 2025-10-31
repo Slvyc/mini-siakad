@@ -49,7 +49,6 @@ class JadwalKknResource extends Resource
                     ->label('Program Studi')
                     ->required()
                     ->searchable()
-                    ->unique()
                     ->preload(),
                 Select::make('tahun_akademik_id')
                     ->relationship('tahunAkademik', 'tahun')
