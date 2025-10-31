@@ -49,6 +49,7 @@ class JadwalKknResource extends Resource
                     ->label('Program Studi')
                     ->required()
                     ->searchable()
+                    ->unique()
                     ->preload(),
                 Select::make('tahun_akademik_id')
                     ->relationship('tahunAkademik', 'tahun')
@@ -56,13 +57,13 @@ class JadwalKknResource extends Resource
                     ->required()
                     ->preload()
                     ->searchable(),
-                DatePicker::make('tanggal_mulai')
-                    ->required(),
-                DatePicker::make('tanggal_selesai')
-                    ->required(),
-                Toggle::make('status_pendaftaran')
-                    ->label('Status Pendaftaran : Dibuka/Ditutup')
-                    ->required(),
+                DatePicker::make('tanggal_dibuka')
+                    ->label('Tanggal Dibuka'),
+                DatePicker::make('tanggal_ditutup')
+                    ->label('Tanggal Ditutup'),
+                // Toggle::make('status_pendaftaran')
+                //     ->label('Status Pendaftaran : Dibuka/Ditutup')
+                //     ->required(),
             ]);
     }
 
@@ -74,10 +75,10 @@ class JadwalKknResource extends Resource
                     ->sortable(),
                 TextColumn::make('tahunAkademik.tahun')
                     ->sortable(),
-                TextColumn::make('tanggal_mulai')
+                TextColumn::make('tanggal_dibuka')
                     ->date()
                     ->sortable(),
-                TextColumn::make('tanggal_selesai')
+                TextColumn::make('tanggal_ditutup')
                     ->date()
                     ->sortable(),
                 IconColumn::make('status_pendaftaran')

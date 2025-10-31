@@ -46,7 +46,8 @@ class TahunAkademikResource extends Resource
         return $schema
             ->components([
                 TextInput::make('tahun')
-                    ->required(),
+                    ->required()
+                    ->unique(),
                 Select::make('semester')
                     ->options(['ganjil' => 'Ganjil', 'genap' => 'Genap'])
                     ->required(),

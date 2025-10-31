@@ -16,8 +16,7 @@
             <h1 class="text-2xl font-bold text-blue-600">MINI SIAKAD</h1>
             <div class="space-x-4">
                 <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600 transition">Login</a>
-                <a href="{{ route('login.admin.post') }}" class="text-gray-700 hover:text-blue-600 transition">Login
-                    Admin</a>
+                <a href="{{ route('login.admin.post') }}" class="text-gray-700 hover:text-blue-600 transition">Admin</a>
                 <a href="{{ route('register') }}"
                     class="text-blue-600 font-semibold hover:text-blue-700 transition">Pendaftaran</a>
             </div>
